@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avenvault</title>
+    <script async crossorigin="anonymous" data-clerk-publishable-key="DIN_NØKKEL_HER" src="https://DIN_URL_HER.clerk.accounts.dev/hotlink.js" type="text/javascript"></script>
+</head>
+<body>
+    <h1>Welcome to Avenvault</h1>
+    
+    <div id="app"></div>
+
+    <script>
+      window.addEventListener('load', async function () {
+        await window.Clerk.load();
+
+        if (window.Clerk.user) {
+          document.getElementById('app').innerHTML = `
+            <div id="user-button"></div>
+            <p>You are signed in as ${window.Clerk.user.primaryEmailAddress.emailAddress}</p>
+          `;
+          window.Clerk.mountUserButton(document.getElementById('user-button'));
+        } else {
+          document.getElementById('app').innerHTML = `
+            <div id="sign-in"></div>
+          `;
+          window.Clerk.mountSignIn(document.getElementById('sign-in'));
+        }
+      });
+    </script>
+</body>
+</html>
