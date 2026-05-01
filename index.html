@@ -1,33 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avenvault</title>
-    <script async crossorigin="anonymous" data-clerk-publishable-key="DIN_NØKKEL_HER" src="https://DIN_URL_HER.clerk.accounts.dev/hotlink.js" type="text/javascript"></script>
+    <title>Avenvault Central</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #0f0f0f; 
+            color: white; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        h1 { margin-bottom: 30px; letter-spacing: 2px; color: #f1c40f; }
+        .container { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+            max-width: 600px;
+        }
+        .box { 
+            width: 250px; 
+            height: 120px; 
+            background: #1a1a1a; 
+            border: 2px solid #3498db;
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            border-radius: 12px;
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            text-decoration: none; 
+            color: white; 
+            text-align: center;
+        }
+        .box:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .box span { font-size: 0.8rem; opacity: 0.7; margin-top: 5px; }
+        .box strong { font-size: 1.2rem; }
+
+        /* Farger for de forskjellige rektanglene */
+        .online { border-color: #2ecc71; }
+        .online:hover { background: #2ecc71; }
+        
+        .store { border-color: #f1c40f; }
+        .store:hover { background: #f1c40f; }
+
+        .org { border-color: #e74c3c; }
+        .org:hover { background: #e74c3c; }
+
+        .info { border-color: #9b59b6; }
+        .info:hover { background: #9b59b6; }
+
+        @media (max-width: 600px) {
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Avenvault</h1>
-    
-    <div id="app"></div>
+
+    <h1>AVENVAULT NETWORK</h1>
+
+    <div class="container">
+        <!-- 1: MAIN site -->
+        <a href="https://avenvault.online" class="box online">
+            <strong>MAIN WEBSITE</strong>
+            <span>avenvault.online</span>
+        </a>
+        
+        <!-- 2: SHOP -->
+        <a href="https://avenvault.store" class="box store">
+            <strong>WEBSTORE</strong>
+            <span>store.avenvault.online</span>
+        </a>
+
+        <!-- 3: .ORG SITE -->
+        <a href="https://avenvault.org" class="box org">
+            <strong>COMMUNITY</strong>
+            <span>store.avenvault.online</span>
+        </a>
+
+        <!-- 4: Server Info / IP -->
+        <a href="#" class="box info" onclick="copyIP()">
+            <strong>SERVER IP</strong>
+            <span id="ipText">mc.avenvault.online</span>
+        </a>
+    </div>
 
     <script>
-      window.addEventListener('load', async function () {
-        await window.Clerk.load();
-
-        if (window.Clerk.user) {
-          document.getElementById('app').innerHTML = `
-            <div id="user-button"></div>
-            <p>You are signed in as ${window.Clerk.user.primaryEmailAddress.emailAddress}</p>
-          `;
-          window.Clerk.mountUserButton(document.getElementById('user-button'));
-        } else {
-          document.getElementById('app').innerHTML = `
-            <div id="sign-in"></div>
-          `;
-          window.Clerk.mountSignIn(document.getElementById('sign-in'));
+        function copyIP() {
+            const ip = "mc.avenvault.com";
+            navigator.clipboard.writeText(ip);
+            const ipText = document.getElementById('ipText');
+            ipText.innerText = "IP COPIED!";
+            setTimeout(() => { ipText.innerText = ip; }, 2000);
         }
-      });
     </script>
+
 </body>
 </html>
+
